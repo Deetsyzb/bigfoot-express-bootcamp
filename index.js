@@ -10,27 +10,27 @@ app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
-// sends the report input form
+// sends the report input form upon request of this route
 app.get('/report', (req,res) => {
   console.log("[Report GET] request received");
   res.render("report");
 })
 
-
+// add a new sighting based on data of POST request of this route
 app.post('/report/add', (req,res) => {
   console.log("[Report POST] request received");
   const { year, season } = req.body; // the form should two input-label pairs
-  readFile(dataPath,(err,content) => {
+  readFile(dataPath,(err,content) => { // extract data
     const json = JSON.parse(content);
     const { sightings } = json;
-    sightings.push({YEAR:year,SEASON:season});
+    sightings.push({YEAR:year,SEASON:season}); // get sighting array
 
-    const newJson = {...json,sightings};
-    const newContent = JSON.stringify(newJson);
+    const newJson = {...json,sightings:sightings};  // construct new json with new sightings
+    const newContent = JSON.stringify(newJson); // parse
     writeFile(dataPath,newContent,(err)=>console.log)
   })
+  res.send("report post response, no error for now");
 
-  res.send("report post response");
 })
 
 app.get('/sightings/:index', (req, res) => {
