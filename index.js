@@ -1,21 +1,35 @@
 import express from 'express';
 
-import { readFile } from 'fs';
+import { readFile,writeFile } from 'fs';
 
+
+const dataPath = "data.json"
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
+// sends the report input form
 app.get('/report', (req,res) => {
   console.log("[Report GET] request received");
   res.render("report");
 })
 
 
-app.post('/report', (req,res) => {
+app.post('/report/add', (req,res) => {
   console.log("[Report POST] request received");
+  const { year, season } = req.body; // the form should two input-label pairs
+  readFile(dataPath,(err,content) => {
+    const json = JSON.parse(content);
+    const { sightings } = json;
+    sightings.push({YEAR:year,SEASON:season});
+
+    const newJson = {...json,sightings};
+    const newContent = JSON.stringify(newJson);
+    writeFile(dataPath,newContent,(err)=>console.log)
+  })
+
   res.send("report post response");
 })
 
