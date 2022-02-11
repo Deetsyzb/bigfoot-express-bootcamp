@@ -4,7 +4,7 @@ import { readFile } from 'fs';
 
 const app = express();
 
-// http://localhost:3004/sightings/0
+app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
