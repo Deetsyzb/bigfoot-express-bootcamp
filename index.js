@@ -1,5 +1,4 @@
-import e from 'express';
-import express, { response } from 'express';
+import express from 'express';
 
 import { readFile } from 'fs';
 
