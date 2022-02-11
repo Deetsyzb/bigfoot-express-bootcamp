@@ -8,6 +8,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
+app.get('/report', (req,res) => {
+
+  console.log("[Report GET] request received");
+
+
+  res.send("get")
+})
+
 app.get('/sightings/:index', (req, res) => {
   console.log('[/sightings/:index] Request received.');
 
