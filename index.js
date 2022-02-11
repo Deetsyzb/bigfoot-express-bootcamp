@@ -9,11 +9,14 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
 app.get('/report', (req,res) => {
-
   console.log("[Report GET] request received");
+  res.render("report");
+})
 
 
-  res.send("get")
+app.post('/report', (req,res) => {
+  console.log("[Report POST] request received");
+  res.send("report post response");
 })
 
 app.get('/sightings/:index', (req, res) => {
